@@ -1,0 +1,50 @@
+/*
+==========================================
+ NoteList Component
+==========================================
+
+ Table of Contents:
+ 1. Empty State Section
+ 2. Notes List Rendering Section
+ 3. Export Section
+*/
+
+// ==========================================
+// 1. Empty State Section
+//    - Renders a message if there are no notes
+// ==========================================
+const NoteList = ({ notes }) => {
+  if (notes.length === 0) {
+    return <p className='text-center text-gray-500'>No Notes Yet</p>;
+  }
+
+  // ==========================================
+  // 2. Notes List Rendering Section
+  //    - Maps over notes and renders each note
+  // ==========================================
+  return (
+    <div className='space-y-4'>
+      {notes.map((note) => (
+        <div
+          key={note.id}
+          className='p-4 bg-white rounded-lg shadow-md border-l-4'
+        >
+          <h3 className='text-lg font-bold'>{note.title}</h3>
+          <p className='text-sm text-gray-600'>
+            <strong>Category: </strong> {note.category}
+          </p>
+          <p className='text-sm text-gray-600'>
+            <strong>Priority: </strong> {note.priority}
+          </p>
+          <p className='mt-2'>{note.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ==========================================
+// 3. Export Section
+//    - Exports the NoteList component
+// ==========================================
+export default NoteList;
