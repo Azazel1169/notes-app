@@ -1,12 +1,27 @@
 import { useState } from 'react';
 
-// =======================
-// NoteForm Component
-// =======================
+/*
+==========================================
+ NoteForm Component
+==========================================
 
-// --- State Initialization Section ---
-// Initializes state variables for the form fields: title, priority, category, and description.
-const NoteForm = () => {
+ Table of Contents:
+ 1. State Initialization Section
+ 2. Input Change Handler
+ 3. Form JSX Section
+    - Title Input Block
+    - Priority Select Block
+    - Category Select Block
+    - Description Textarea Block
+    - Submit Button Block
+ 4. Export Section
+*/
+
+// ==========================================
+// 1. State Initialization Section
+//    - Initializes state for form fields
+// ==========================================
+const NoteForm = ({ notes, setNotes }) => {
   const [formData, setFormData] = useState({
     title: '',
     priority: 'Medium',
@@ -14,17 +29,43 @@ const NoteForm = () => {
     description: '',
   });
 
+  // ==========================================
+  // 2. Input Change Handler
+  //    - Updates form state on input change
+  // ==========================================
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
+    });
   };
 
-  // --- Form JSX Section ---
-  // Renders the form with input fields for title, priority, category, and description.
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validation
+    if (!formData.title || !formData.description) return;
+
+    // Create note object
+    const newNote = { id: Date.now(), ...formData };
+
+    // Add notes to state
+    setNotes([newNote, ...notes]);
+
+    // Reset form data
+    setFormData({
+      title: '',
+      priority: 'Medium',
+      category: 'Work',
+      description: '',
+    });
+  };
+
+  // ==========================================
+  // 3. Form JSX Section
+  //    - Renders the form and its fields
+  // ==========================================
   return (
-    <form className='mb-6'>
+    <form onSubmit={handleSubmit} className='mb-6'>
       {/* --- Title Input Block --- */}
       {/* Input for the note's title */}
       <div className='mb-4'>
@@ -102,6 +143,8 @@ const NoteForm = () => {
   );
 };
 
-// --- Export Section ---
-// Exports the NoteForm component for use in other files.
+// ==========================================
+// 4. Export Section
+//    - Exports the NoteForm component
+// ==========================================
 export default NoteForm;
