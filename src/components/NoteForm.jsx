@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Textinput from './inputs/Textinput';
 import Selectinput from './inputs/Selectinput';
+import TextAreaInput from './inputs/TextAreaInput';
 
 // State Initialization Section
 const NoteForm = ({ notes, setNotes }) => {
@@ -81,18 +82,13 @@ const NoteForm = ({ notes, setNotes }) => {
             ]}
           />
           {/* Description Textarea Block */}
-          <div className='mb-4'>
-            <label htmlFor='description' className='block font-semibold'>
-              Description
-            </label>
-            <textarea
+            <TextAreaInput
+              label='Description'
               name='description'
-              type='text'
-              className='w-full p-2 border rounded-lg'
               value={formData.description}
               onChange={handleChange}
-            ></textarea>
-          </div>
+              required
+            />
           {/* Submit Button Block */}
           <div>
             <button className='w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600'>
